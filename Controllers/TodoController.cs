@@ -1,4 +1,5 @@
 ﻿using MeuTodo.Data;
+using MeuTodo.Migrations;
 using MeuTodo.Models;
 using MeuTodo.ViewModels;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -13,11 +14,21 @@ using System.Threading.Tasks;
 namespace MeuTodo.Controllers
 {
     [ApiController]
-    [Route("v1")]
-    public class TodoControllers : ControllerBase
+    [Route(template: "v1")]
+    public class TodoController : ControllerBase
     {
         [HttpGet]
-        [Route("todos/{id}")]
+        [Route(template: "todos")]
+        public async Task<IActionResult> GetAsync(
+            [FromServices] AppDataContext context)
+        {
+            var todos = await context
+                .Todos.AsNoTracking().ToListAsync();
+            return Ok(todos);
+        }
+        
+        [HttpGet]
+        [Route(template: "todos/{id}")]
         public async Task<IActionResult> GetByIdAsync(
             [FromServices] AppDataContext context,
             [FromRoute] int id)
@@ -30,13 +41,13 @@ namespace MeuTodo.Controllers
             return todo == null ? NotFound() : Ok(todo);
         }
 
-        [HttpPost("todos")]
+        [HttpPost(template: "todos")]
         public async Task<IActionResult> PostAsync(
-            [FromServices] AppDataContext context,
-            [FromBody] CreateTodoViewModel model)
+       [FromServices] AppDataContext context,
+       [FromBody] CreateTodoViewModel model)
         {
-            if(!ModelState.IsValid) 
-                return BadRequest();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState); 
 
             var todo = new Todo
             {
@@ -49,12 +60,11 @@ namespace MeuTodo.Controllers
             {
                 await context.Todos.AddAsync(todo);
                 await context.SaveChangesAsync();
-                return Created($"v1/todos/{todo.Id}", todo);
+                return Created(uri: $"v1/todos/{todo.Id}", todo);
             }
-
             catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
         }
 

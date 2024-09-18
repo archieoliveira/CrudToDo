@@ -113,6 +113,7 @@ D:\crud dotnet\MeuTodo\obj\Debug\net8.0\MeuTodo.AssemblyInfoInputs.cache
 D:\crud dotnet\MeuTodo\obj\Debug\net8.0\MeuTodo.AssemblyInfo.cs
 D:\crud dotnet\MeuTodo\obj\Debug\net8.0\MeuTodo.csproj.CoreCompileInputs.cache
 D:\crud dotnet\MeuTodo\obj\Debug\net8.0\MeuTodo.MvcApplicationPartsAssemblyInfo.cache
+D:\crud dotnet\MeuTodo\obj\Debug\net8.0\MeuTodo.sourcelink.json
 D:\crud dotnet\MeuTodo\obj\Debug\net8.0\staticwebassets.build.json
 D:\crud dotnet\MeuTodo\obj\Debug\net8.0\staticwebassets.development.json
 D:\crud dotnet\MeuTodo\obj\Debug\net8.0\staticwebassets\msbuild.MeuTodo.Microsoft.AspNetCore.StaticWebAssets.props
